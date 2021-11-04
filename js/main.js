@@ -1,33 +1,180 @@
-// Задание №1.
-// Функция, возвращающая случайное целое число из переданного диапазона включительно.
-// Решение нашёл здесь: https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-
 function getRandomInteger(min, max) {
-  if (min < max && min >= 0) {
-  min = Math.ceil(min); // Округление до ближайшего большего целого.
-  max = Math.floor(max); // Округление до ближайшего меньшего целого.
-  return Math.floor(Math.random() * (max - min + 1)) + min; // Округление до ближайшего меньшего целого + округление к ближайшему целому.
-  }
-  console.log('Второе значение должно быть больше первого, а первое не должно быть отрицательным!');
-}
-
-console.log(getRandomInteger());
-
-
-
-// Задание №2.
-// Функция, возвращающая число с плавающей точкой из диапазона "от...до"
-// с указанием количества знака после запятой.
-// Решение подсмотрел здесь: https://qna.habr.com/q/999157 и здесь: https://developer.mozilla.org/ru/docs/Web/JavaScript/Guide/Expressions_and_Operators
-
-function getRandomIntegerNum(min, max, num) {
   if (min < max && min >= 0) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  let number = 10 ** num; // Возведение в степень
-  return Math.floor((Math.random() * (max - min + 1) + min) * number) / number;
-  }
-  console.log('Второе значение должно быть больше первого, а первое не должно быть отрицательным!');
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+  throw new Error('Второе значение должно быть больше первого, а первое не должно быть отрицательным!');
 }
 
-console.log(getRandomIntegerNum());
+function getRandomIntegerNum(min, max, num) {
+  if (min < max && min >= 0) {
+  min = Math. min(min);
+  max = Math.max(max);
+  let result = (Math.random() * (max - min) + min);
+  return result.toFixed(num);
+  };
+  throw new Error('Второе значение должно быть больше первого, а первое не должно быть отрицательным!');
+};
+
+const getRandomArrayElement = (elements) =>
+elements[_.random(0, elements.length - 1)];
+
+
+function getArray(elements) {
+  const maxLength = elements.length;
+  const lengthOfArray = getRandomNumber(1, maxLength);
+  const array = [];
+
+  while (array.length < lengthOfArray) {
+    const indexOfEl = getRandomNumber(0, maxLength - 1);
+    const el = elements[indexOfEl];
+
+    if (!array.includes(el)) {
+      array.push(el);
+    }
+  }
+  return array;
+
+  function getRandomNumber(from, to) {
+    return Math.floor(Math.random() * (to - from + 1)) + from;
+  }
+};
+
+
+const avatars = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const numberOfAvatar = avatars.slice();
+
+const randomAvatar = () => {
+    let randomNumber = Math.floor(Math.random()*numberOfAvatar.length);
+    return numberOfAvatar.splice(randomNumber, 1);
+};
+
+const avatar = () => {
+ const generateNumber = randomAvatar();
+  if (generateNumber == 10) {
+      numberOfAvatars = 'img/avatars/user10.png';
+  } else {
+      numberOfAvatars = 'img/avatars/user' + '0' + generateNumber + '.png';
+  };
+
+  return numberOfAvatars;
+};
+
+const author = () => {
+  return {
+  avatar: avatar(),
+  };
+};
+
+
+
+const locationLat = () => {
+    return getRandomIntegerNum(35.65, 35.7, 5);
+};
+
+const locationIng = () => {
+    return getRandomIntegerNum(139.7, 139.8, 5);
+};
+
+const location = () => {
+    return {
+  lat: locationLat(),
+  lng: locationIng(),
+    };
+};
+
+
+const price = () => {
+    return getRandomInteger(0, 1000000);
+};
+
+
+const type = [
+  'palace',
+  'flat',
+  'house',
+  'bungalow',
+  'hotel',
+];
+
+
+const rooms = () => {
+    return getRandomInteger(1, 6);
+};
+
+
+const guests = () => {
+    return getRandomInteger(1, 10);
+};
+
+
+const checkin = [
+  '12:00',
+  '13:00',
+  '14:00',
+];
+
+
+const checkout = [
+  '12:00',
+  '13:00',
+  '14:00',
+];
+
+
+const features = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner',
+];
+
+
+const title = [
+'Старый фонд',
+'Квартира в центре города',
+'Дом с красивым видом',
+'Апартаменты с панорамными окнами',
+'Квартира с террасой',
+'Квартира-манасарда в современном доме',
+'Отель в западной части города',
+'Комната в коммуналке',
+'Жилой комплекс',
+'Дом бизнес-класса',
+];
+
+
+const photos = [
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
+];
+
+
+const offer = () => {
+  return {
+  title: getRandomArrayElement(title),
+  addres: location(),
+  price: price(),
+  type: getRandomArrayElement(type),
+  rooms: rooms(),
+  guests: guests(),
+  checkin: getRandomArrayElement(checkin),
+  checkout: getRandomArrayElement(checkout),
+  features: getArray(features),
+  description: 'Пример описания объявления',
+  photos: getArray(photos),
+  };
+};
+
+const objectOfKeksobooking = () => {
+    return {
+        author: author(),
+        offer: offer(),
+    };
+};
+
+_.times(10, objectOfKeksobooking);
